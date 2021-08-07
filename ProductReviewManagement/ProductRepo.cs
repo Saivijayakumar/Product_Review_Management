@@ -108,5 +108,17 @@ namespace ProductReviewManagement
             IterateList(result);
             return result.Count;
         }
+        public int RetriveProductIdAndReviewOnlyUsingSelect(List<ProductReview> products)
+        {
+            int count = 0;
+            AddingProductDetailsToList(products);
+            var result = products.Select(product => new { productId = product.productId, review = product.review }).ToList();
+            foreach (var product in result)
+            {
+                Console.WriteLine($"ProductId = {product.productId} | Review={product.review}\n");
+                count++;
+            }
+            return count;
+        }
     }
 }
