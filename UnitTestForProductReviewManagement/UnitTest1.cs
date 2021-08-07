@@ -45,5 +45,12 @@ namespace UnitTestForProductReviewManagement
             actual = repo.CountOfReviewForEachProductId(Products);
             Assert.AreEqual(actual, expected);
         }
+        [TestMethod]
+        public void CallingAMethodForReturningcountOflist()
+        {
+            int actual, expected = 20;
+            actual = repo.RetriveProductIdAndReviewOnly(Products);
+            Assert.AreEqual(actual, expected);
+        }
     }
 }
