@@ -100,5 +100,13 @@ namespace ProductReviewManagement
             }
             return count;
         }
+        public int SkipTop5RecordsAndReturnAll(List<ProductReview> products)
+        {
+            AddingProductDetailsToList(products);
+            var result = (from product in products orderby product.productId ascending select product).Skip(5).ToList();
+            Console.WriteLine("\t\t Skip Top 5 Records ");
+            IterateList(result);
+            return result.Count;
+        }
     }
 }
