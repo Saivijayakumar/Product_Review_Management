@@ -31,5 +31,12 @@ namespace UnitTestForProductReviewManagement
             actual = repo.RetrieveTopThreeHighRating(Products);
             Assert.AreEqual(actual, expected);
         }
+        [TestMethod]
+        public void TestMethodRetreiveParticularRecords()
+        {
+            int actual, expected = 6;
+            actual = repo.RetrieveBasedOnRatingAndProductId(Products);
+            Assert.AreEqual(actual, expected);
+        }
     }
 }

@@ -65,5 +65,14 @@ namespace ProductReviewManagement
             IterateList(result);
             return result.Count;
         }
+        public int RetrieveBasedOnRatingAndProductId(List<ProductReview> products)
+        {
+            AddingProductDetailsToList(products);
+            //Using Linq query to retrieve particular product id and rating
+            var result = (from product in products where (product.productId == 1 || product.productId == 4 || product.productId == 9) && product.rating > 3 select product).ToList();
+            Console.WriteLine("\t\t Retrive Records where ID is 1,4,9 and rating is >3 ");
+            IterateList(result);
+            return result.Count;
+        }
     }
 }
