@@ -21,7 +21,14 @@ namespace UnitTestForProductReviewManagement
         public void AddingDataToListAndReturnTheCount()
         {
             int actual, expected = 20;
-            actual = repo.AddProductReviewToList(Products);
+            actual = repo.AddingProductDetailsToList(Products);
+            Assert.AreEqual(actual, expected);
+        }
+        [TestMethod]
+        public void CheckingTheMethodRetreiveTop3()
+        {
+            int actual, expected = 3;
+            actual = repo.RetrieveTopThreeHighRating(Products);
             Assert.AreEqual(actual, expected);
         }
     }

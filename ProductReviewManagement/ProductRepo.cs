@@ -9,7 +9,7 @@ namespace ProductReviewManagement
     public class ProductRepo
     {
         //Adding Product to list
-        public int AddProductReviewToList(List<ProductReview> products)
+        public int AddingProductDetailsToList(List<ProductReview> products)
         {
             try
             {
@@ -48,16 +48,22 @@ namespace ProductReviewManagement
             {
                 foreach (ProductReview i in products)
                 {
-                    Console.WriteLine($"ProductId:{i.productId}\t UserId:{i.userId}\t Review:{i.review}\tRating:{i.rating}\tIsLike:{i.isLike}\t");
+                    Console.WriteLine($"ProductId:{i.productId}\t UserId:{i.userId}\t Review:{i.review}\t Rating:{i.rating}\t IsLike:{i.isLike}");
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-
         }
-
-
+        public int RetrieveTopThreeHighRating(List<ProductReview> products)
+        {
+            AddingProductDetailsToList(products);
+            //Using Linq query sort the list in descending order and take first 3 elements
+            var result = (from product in products orderby product.rating descending select product).Take(3).ToList();
+            Console.WriteLine("\t\t Top 3 Records Who's Rating Is High ");
+            IterateList(result);
+            return result.Count;
+        }
     }
 }
