@@ -9,7 +9,7 @@ namespace ProductReviewManagement
     public class ProductRepo
     {
         //Adding Product to list
-        public int AddProductReviewToList(List<ProductReview> products)
+        public int AddingProductDetailsToList(List<ProductReview> products)
         {
             try
             {
@@ -55,9 +55,6 @@ namespace ProductReviewManagement
             {
                 Console.WriteLine(ex.Message);
             }
-
         }
-
-
     }
 }
