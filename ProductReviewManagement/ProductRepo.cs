@@ -74,5 +74,19 @@ namespace ProductReviewManagement
             IterateList(result);
             return result.Count;
         }
+        public int CountOfReviewForEachProductId(List<ProductReview> products)
+        {
+            int countOfReview = 0;
+            AddingProductDetailsToList(products);
+            //Using group by in linq
+            var result = products.GroupBy(x => x.productId).Select(product => new { productId = product.Key, Count = product.Count() });
+            Console.WriteLine("\t\t Count Of Review For Each ProductId ");
+            foreach (var product in result)
+            {
+                Console.WriteLine($"ProductId = {product.productId} | Count={product.Count}\n");
+                countOfReview++;
+            }
+            return countOfReview;
+        }
     }
 }
