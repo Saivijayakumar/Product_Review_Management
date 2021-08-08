@@ -142,14 +142,9 @@ namespace ProductReviewManagement
         }
         public int RetreiveRecordsIfIsLikeTrue(List<ProductReview> products)
         {
-            int count = 0;
             CreateDataTable(products);
             var result = from res in Table.AsEnumerable() where res.Field<bool>("isLike") == true select res;
-            foreach (var i in result)
-            {
-                Console.WriteLine($"ProductId:{i["productId"]} | UserId:{i["userId"]} | Rating:{i["rating"]} | Review:{i["review"]} | IsLike:{i["isLike"]} |");
-                count++;
-            }
+            int count = IterateTable(result);
             return count;
         }
         public int AverageRatingOfProductId(List<ProductReview> products)
@@ -162,6 +157,23 @@ namespace ProductReviewManagement
             foreach (var i in result)
             {
                 Console.WriteLine($"ProductID:{i.productid} | AverageRating:{i.Average}");
+                count++;
+            }
+            return count;
+        }
+        public int RetreiveGoodRatings(List<ProductReview> products)
+        {
+            CreateDataTable(products);
+            var result = from table in Table.AsEnumerable() where table.Field<string>("review").Contains("Good") select table;
+            int count = IterateTable(result);
+            return count;
+        }
+        public int IterateTable(EnumerableRowCollection<DataRow> result)
+        {
+            int count = 0;
+            foreach (var row in result)
+            {
+                Console.WriteLine($"| ProductId:{row["productId"]} | UserId:{row["userId"]} | Rating:{row["rating"]} | Review:{row["review"]} | IsLike:{row["isLike"]} |");
                 count++;
             }
             return count;

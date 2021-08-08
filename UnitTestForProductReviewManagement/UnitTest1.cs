@@ -87,5 +87,13 @@ namespace UnitTestForProductReviewManagement
             actual = repo.AverageRatingOfProductId(Products);
             Assert.AreEqual(actual, expected);
         }
+        [TestMethod]
+        public void CallingAMethodToAllRecordswhoHasGoodRating()
+        {
+            int actual, expected = 9;
+            actual = repo.RetreiveGoodRatings(Products);
+            Assert.AreEqual(actual, expected);
+        }
+
     }
 }
