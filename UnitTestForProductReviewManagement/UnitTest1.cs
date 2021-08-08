@@ -94,6 +94,13 @@ namespace UnitTestForProductReviewManagement
             actual = repo.RetreiveGoodRatings(Products);
             Assert.AreEqual(actual, expected);
         }
+        [TestMethod]
+        public void CallingAMethodForOrderByForPerticularID()
+        {
+            int actual, expected = 5;
+            actual = repo.RetrieveRecordsOrderbyRating(Products);
+            Assert.AreEqual(actual, expected);
+        }
 
     }
 }

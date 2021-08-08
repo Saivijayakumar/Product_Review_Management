@@ -16,7 +16,7 @@ namespace ProductReviewManagement
             try
             {
                 products.Add(new ProductReview() { productId = 1, userId = 5, review = "Good", rating = 9, isLike = true });
-                products.Add(new ProductReview() { productId = 3, userId = 9, review = "Bad", rating = 6, isLike = false });
+                products.Add(new ProductReview() { productId = 3, userId = 10, review = "Bad", rating = 6, isLike = false });
                 products.Add(new ProductReview() { productId = 5, userId = 4, review = "Average", rating = 5, isLike = true });
                 products.Add(new ProductReview() { productId = 1, userId = 10, review = "Average", rating = 10, isLike = true });
                 products.Add(new ProductReview() { productId = 4, userId = 7, review = "Good", rating = 5, isLike = true });
@@ -24,17 +24,17 @@ namespace ProductReviewManagement
                 products.Add(new ProductReview() { productId = 2, userId = 2, review = "Average", rating = 8, isLike = true });
                 products.Add(new ProductReview() { productId = 1, userId = 2, review = "Bad", rating = 8, isLike = false });
                 products.Add(new ProductReview() { productId = 5, userId = 9, review = "Average", rating = 7, isLike = true });
-                products.Add(new ProductReview() { productId = 3, userId = 11, review = "Good", rating = 5, isLike = true });
+                products.Add(new ProductReview() { productId = 3, userId = 10, review = "Good", rating = 5, isLike = true });
                 products.Add(new ProductReview() { productId = 3, userId = 4, review = "Good", rating = 9, isLike = true });
-                products.Add(new ProductReview() { productId = 3, userId = 9, review = "Bad", rating = 6, isLike = false });
+                products.Add(new ProductReview() { productId = 3, userId = 10, review = "Bad", rating = 6, isLike = false });
                 products.Add(new ProductReview() { productId = 5, userId = 4, review = "Average", rating = 3, isLike = true });
                 products.Add(new ProductReview() { productId = 2, userId = 5, review = "Bad", rating = 7, isLike = false });
-                products.Add(new ProductReview() { productId = 2, userId = 1, review = "Very Good", rating = 9, isLike = true });
-                products.Add(new ProductReview() { productId = 7, userId = 7, review = "Very Good", rating = 8, isLike = true });
-                products.Add(new ProductReview() { productId = 9, userId = 5, review = "Very Good", rating = 7, isLike = true });
+                products.Add(new ProductReview() { productId = 2, userId = 1, review = "Good", rating = 9, isLike = true });
+                products.Add(new ProductReview() { productId = 7, userId = 7, review = "Good", rating = 8, isLike = true });
+                products.Add(new ProductReview() { productId = 9, userId = 5, review = "Good", rating = 7, isLike = true });
                 products.Add(new ProductReview() { productId = 10, userId = 3, review = "Bad", rating = 9, isLike = false });
                 products.Add(new ProductReview() { productId = 12, userId = 3, review = "Bad", rating = 6, isLike = false });
-                products.Add(new ProductReview() { productId = 14, userId = 15, review = "Very Good", rating = 9, isLike = true });
+                products.Add(new ProductReview() { productId = 14, userId = 10, review = "Good", rating = 9, isLike = true });
 
                 IterateList(products);
             }
@@ -166,6 +166,19 @@ namespace ProductReviewManagement
             CreateDataTable(products);
             var result = from table in Table.AsEnumerable() where table.Field<string>("review").Contains("Good") select table;
             int count = IterateTable(result);
+            return count;
+        }
+        public int RetrieveRecordsOrderbyRating(List<ProductReview> products)
+        {
+            int count = 0;
+            CreateDataTable(products);
+            var result = (from product in Table.AsEnumerable() where product.Field<Int32>("userId") == 10 orderby product.Field<int>("rating") select product);
+            Console.WriteLine("\t\tDisplaying Records For UserId:10 in order of Rating");
+            foreach(var row in result)
+            {
+                Console.WriteLine($"| ProductId:{row["productId"]} | UserId:{row["userId"]} | Rating:{row["rating"]} | Review:{row["review"]} | IsLike:{row["isLike"]} |");
+                count++;
+            }
             return count;
         }
         public int IterateTable(EnumerableRowCollection<DataRow> result)
