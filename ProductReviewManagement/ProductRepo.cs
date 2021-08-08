@@ -9,6 +9,7 @@ namespace ProductReviewManagement
 {
     public class ProductRepo
     {
+        DataTable Table;
         //Adding Product to list
         public int AddingProductDetailsToList(List<ProductReview> products)
         {
@@ -125,7 +126,7 @@ namespace ProductReviewManagement
         {
             AddingProductDetailsToList(products);
             //Create datatable
-            DataTable Table = new DataTable();
+            Table = new DataTable();
             //Adding colums to data table
             Table.Columns.Add("productId", typeof(int));
             Table.Columns.Add("userId", typeof(int));
@@ -138,6 +139,32 @@ namespace ProductReviewManagement
                 Table.Rows.Add(data.productId, data.userId, data.rating, data.review, data.isLike);
             }
             return Table.Rows.Count;
+        }
+        public int RetreiveRecordsIfIsLikeTrue(List<ProductReview> products)
+        {
+            int count = 0;
+            CreateDataTable(products);
+            var result = from res in Table.AsEnumerable() where res.Field<bool>("isLike") == true select res;
+            foreach (var i in result)
+            {
+                Console.WriteLine($"ProductId:{i["productId"]} | UserId:{i["userId"]} | Rating:{i["rating"]} | Review:{i["review"]} | IsLike:{i["isLike"]} |");
+                count++;
+            }
+            return count;
+        }
+        public int AverageRatingOfProductId(List<ProductReview> products)
+        {
+            int count = 0;
+            CreateDataTable(products);
+            var result = from product in Table.AsEnumerable()
+                         group product by product.Field<int>("productId") into Table
+                         select new { productid = Table.Key, Average = Math.Round(Table.Average(x => x.Field<int>("rating")), 1)};
+            foreach (var i in result)
+            {
+                Console.WriteLine($"ProductID:{i.productid} | AverageRating:{i.Average}");
+                count++;
+            }
+            return count;
         }
     }
 }
