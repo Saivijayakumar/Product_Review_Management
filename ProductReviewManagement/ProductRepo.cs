@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -119,6 +120,24 @@ namespace ProductReviewManagement
                 count++;
             }
             return count;
+        }
+        public int CreateDataTable(List<ProductReview> products)
+        {
+            AddingProductDetailsToList(products);
+            //Create datatable
+            DataTable Table = new DataTable();
+            //Adding colums to data table
+            Table.Columns.Add("productId", typeof(int));
+            Table.Columns.Add("userId", typeof(int));
+            Table.Columns.Add("rating", typeof(int));
+            Table.Columns.Add("review", typeof(string));
+            Table.Columns.Add("isLike", typeof(bool));
+            foreach (var data in products)
+            {
+                //Adding values to rows
+                Table.Rows.Add(data.productId, data.userId, data.rating, data.review, data.isLike);
+            }
+            return Table.Rows.Count;
         }
     }
 }

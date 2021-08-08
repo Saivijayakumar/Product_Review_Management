@@ -66,5 +66,12 @@ namespace UnitTestForProductReviewManagement
             actual = repo.RetriveProductIdAndReviewOnlyUsingSelect(Products);
             Assert.AreEqual(actual, expected);
         }
+        [TestMethod]
+        public void CreatingDataTableAndReturningCountOfRows()
+        {
+            int actual, expected = 20;
+            actual = repo.CreateDataTable(Products);
+            Assert.AreEqual(actual, expected);
+        }
     }
 }
